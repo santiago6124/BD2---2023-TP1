@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>290</y>
+      <x>80</x>
+      <y>380</y>
       <w>170</w>
       <h>120</h>
     </coordinates>
@@ -21,8 +21,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>600</x>
-      <y>280</y>
+      <x>660</x>
+      <y>260</y>
       <w>170</w>
       <h>180</h>
     </coordinates>
@@ -32,33 +32,33 @@
 -nombre: str
 -apellido: str
 -estilo: estilo
--contacto: contacto
+-contacto: Contacto
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>300</x>
-      <y>290</y>
+      <x>360</x>
+      <y>270</y>
       <w>200</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>Citas
 --
 -FechaHora: datetime
--precio:int
--Peluquero: peluquero
+-Peluquero: Peluquero
 -cliente: cliente
--sucursal: sucursal
--servicio: servicio</panel_attributes>
+-sucursal: Sucursal
+-servicio: Servicio
+-estado: Estado</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>310</x>
-      <y>110</y>
+      <x>370</x>
+      <y>90</y>
       <w>150</w>
       <h>120</h>
     </coordinates>
@@ -73,20 +73,20 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>160</x>
-      <y>330</y>
-      <w>160</w>
-      <h>40</h>
+      <x>240</x>
+      <y>370</y>
+      <w>140</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= *</panel_attributes>
-    <additional_attributes>140.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>120.0;10.0;10.0;60.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>370</x>
-      <y>220</y>
+      <x>430</x>
+      <y>200</y>
       <w>30</w>
       <h>90</h>
     </coordinates>
@@ -97,8 +97,8 @@ m1=*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>490</x>
-      <y>360</y>
+      <x>550</x>
+      <y>340</y>
       <w>130</w>
       <h>40</h>
     </coordinates>
@@ -109,23 +109,24 @@ m1=*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>310</x>
-      <y>620</y>
+      <x>370</x>
+      <y>600</y>
       <w>170</w>
       <h>110</h>
     </coordinates>
-    <panel_attributes>servicio
+    <panel_attributes>Servicio
 --
 -id: int
 -nombre: str
+-precio: int
 -descripcion: str</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>310</x>
-      <y>480</y>
+      <x>370</x>
+      <y>460</y>
       <w>170</w>
       <h>110</h>
     </coordinates>
@@ -133,14 +134,14 @@ m1=*</panel_attributes>
 --
 -id: int
 -Cita: citas
--servicio: servicio</panel_attributes>
+-servicio: Servicio</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>390</x>
-      <y>420</y>
+      <x>450</x>
+      <y>400</y>
       <w>30</w>
       <h>80</h>
     </coordinates>
@@ -151,8 +152,8 @@ m1=*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>390</x>
-      <y>580</y>
+      <x>450</x>
+      <y>560</y>
       <w>30</w>
       <h>60</h>
     </coordinates>
@@ -163,16 +164,16 @@ m1= *</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1050</x>
-      <y>280</y>
-      <w>120</w>
+      <x>1110</x>
+      <y>260</y>
+      <w>170</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>contacto
 --
 - id: int
 - mail: str
-- numero: str
+- numeroTelefono: str
 
 </panel_attributes>
     <additional_attributes/>
@@ -180,12 +181,12 @@ m1= *</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>610</x>
+      <x>670</x>
       <y>0</y>
       <w>150</w>
       <h>100</h>
     </coordinates>
-    <panel_attributes>estilo
+    <panel_attributes>Estilo
 --
 -id: int
 -nombre: str
@@ -195,79 +196,106 @@ m1= *</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>760</x>
-      <y>340</y>
-      <w>90</w>
+      <x>820</x>
+      <y>320</y>
+      <w>80</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=*</panel_attributes>
-    <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>980</x>
-      <y>340</y>
-      <w>90</w>
+      <x>1030</x>
+      <y>320</y>
+      <w>100</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=*</panel_attributes>
-    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>830</x>
-      <y>290</y>
+      <x>880</x>
+      <y>270</y>
       <w>160</w>
       <h>90</h>
     </coordinates>
-    <panel_attributes>contactoCliente
+    <panel_attributes>ContactoCliente
 --
 -id: int
-- contacto: contacto
--cliente:cliente</panel_attributes>
+- contacto: Contacto
+-cliente: Cliente</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>590</x>
-      <y>160</y>
+      <x>650</x>
+      <y>140</y>
       <w>190</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>estiloClientes
+    <panel_attributes>EstiloClientes
 --
 -id: int
-- estilo: estilo
-- cliente: cliente</panel_attributes>
+- estilo: Estilo
+- cliente: Cliente</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>670</x>
+      <x>730</x>
       <y>90</y>
       <w>30</w>
-      <h>90</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= *</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>670</x>
-      <y>230</y>
+      <x>730</x>
+      <y>210</y>
       <w>30</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=*</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>100</x>
+      <y>210</y>
+      <w>160</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Estado
+--
+- id: int
+- estado: str
+- descripcion: str</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>250</x>
+      <y>240</y>
+      <w>130</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1= *</panel_attributes>
+    <additional_attributes>110.0;60.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
