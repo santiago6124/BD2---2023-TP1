@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="15.0.0">
-  <zoom_level>8</zoom_level>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>80</x>
       <y>380</y>
       <w>170</w>
       <h>120</h>
-=======
-      <x>104</x>
-      <y>288</y>
-      <w>136</w>
-      <h>96</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>Sucursal
 --
@@ -28,17 +21,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>660</x>
       <y>260</y>
       <w>170</w>
       <h>180</h>
-=======
-      <x>584</x>
-      <y>280</y>
-      <w>136</w>
-      <h>144</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>Clientes
 --
@@ -53,49 +39,28 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>360</x>
       <y>270</y>
       <w>200</w>
       <h>140</h>
-=======
-      <x>344</x>
-      <y>288</y>
-      <w>160</w>
-      <h>112</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>Citas
 --
 -FechaHora: datetime
 -Peluquero: Peluquero
 -cliente: cliente
-<<<<<<< HEAD
 -sucursal: Sucursal
 -servicio: Servicio
 -estado: Estado</panel_attributes>
-=======
--sucursal: sucursal
--servicio: servicio
-
-</panel_attributes>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>370</x>
       <y>90</y>
       <w>150</w>
       <h>120</h>
-=======
-      <x>352</x>
-      <y>144</y>
-      <w>120</w>
-      <h>96</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>Peluquero
 --
@@ -108,17 +73,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>240</x>
       <y>370</y>
       <w>140</w>
       <h>80</h>
-=======
-      <x>232</x>
-      <y>320</y>
-      <w>128</w>
-      <h>32</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= *</panel_attributes>
@@ -127,17 +85,10 @@ m1= *</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>430</x>
       <y>200</y>
       <w>30</w>
       <h>90</h>
-=======
-      <x>400</x>
-      <y>232</y>
-      <w>32</w>
-      <h>72</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=*</panel_attributes>
@@ -146,17 +97,10 @@ m1=*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>550</x>
       <y>340</y>
       <w>130</w>
       <h>40</h>
-=======
-      <x>496</x>
-      <y>344</y>
-      <w>104</w>
-      <h>32</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=*</panel_attributes>
@@ -165,23 +109,15 @@ m1=*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>370</x>
       <y>600</y>
       <w>170</w>
       <h>110</h>
-=======
-      <x>512</x>
-      <y>472</y>
-      <w>136</w>
-      <h>88</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>Servicio
 --
 -id: int
 -nombre: str
-<<<<<<< HEAD
 -precio: int
 -descripcion: str</panel_attributes>
     <additional_attributes/>
@@ -199,16 +135,11 @@ m1=*</panel_attributes>
 -id: int
 -Cita: citas
 -servicio: Servicio</panel_attributes>
-=======
--descripcion: str
--precio: int</panel_attributes>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>450</x>
       <y>400</y>
       <w>30</w>
@@ -225,34 +156,20 @@ m1=*</panel_attributes>
       <y>560</y>
       <w>30</w>
       <h>60</h>
-=======
-      <x>480</x>
-      <y>392</y>
-      <w>120</w>
-      <h>96</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>lt=&lt;-
-m1= 1
-m2= 1</panel_attributes>
-    <additional_attributes>10.0;10.0;130.0;100.0</additional_attributes>
+m1= *</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1110</x>
       <y>260</y>
       <w>170</w>
       <h>140</h>
-=======
-      <x>944</x>
-      <y>280</y>
-      <w>96</w>
-      <h>112</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
-    <panel_attributes>Contacto
+    <panel_attributes>contacto
 --
 - id: int
 - mail: str
@@ -264,17 +181,10 @@ m2= 1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>670</x>
       <y>0</y>
       <w>150</w>
       <h>100</h>
-=======
-      <x>592</x>
-      <y>56</y>
-      <w>120</w>
-      <h>80</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>Estilo
 --
@@ -286,17 +196,10 @@ m2= 1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>820</x>
       <y>320</y>
       <w>80</w>
       <h>40</h>
-=======
-      <x>712</x>
-      <y>328</y>
-      <w>72</w>
-      <h>32</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=*</panel_attributes>
@@ -305,17 +208,10 @@ m1=*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>1030</x>
       <y>320</y>
       <w>100</w>
       <h>40</h>
-=======
-      <x>888</x>
-      <y>328</y>
-      <w>72</w>
-      <h>32</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=*</panel_attributes>
@@ -324,17 +220,10 @@ m1=*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>880</x>
       <y>270</y>
       <w>160</w>
       <h>90</h>
-=======
-      <x>768</x>
-      <y>288</y>
-      <w>128</w>
-      <h>72</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>ContactoCliente
 --
@@ -346,17 +235,10 @@ m1=*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>650</x>
       <y>140</y>
       <w>190</w>
       <h>80</h>
-=======
-      <x>576</x>
-      <y>184</y>
-      <w>152</w>
-      <h>64</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>EstiloClientes
 --
@@ -368,17 +250,10 @@ m1=*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>730</x>
       <y>90</y>
       <w>30</w>
       <h>70</h>
-=======
-      <x>640</x>
-      <y>128</y>
-      <w>32</w>
-      <h>72</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1= *</panel_attributes>
@@ -387,17 +262,10 @@ m1= *</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>730</x>
       <y>210</y>
       <w>30</w>
       <h>70</h>
-=======
-      <x>640</x>
-      <y>240</y>
-      <w>32</w>
-      <h>56</h>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=*</panel_attributes>
@@ -406,7 +274,6 @@ m1=*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
       <x>100</x>
       <y>210</y>
       <w>160</w>
@@ -417,24 +284,11 @@ m1=*</panel_attributes>
 - id: int
 - estado: str
 - descripcion: str</panel_attributes>
-=======
-      <x>288</x>
-      <y>472</y>
-      <w>136</w>
-      <h>88</h>
-    </coordinates>
-    <panel_attributes>Estado
---
--id: int
--descripcion: str
--cita:cita</panel_attributes>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
       <x>250</x>
       <y>240</y>
       <w>130</w>
@@ -443,15 +297,5 @@ m1=*</panel_attributes>
     <panel_attributes>lt=&lt;-
 m1= *</panel_attributes>
     <additional_attributes>110.0;60.0;10.0;10.0</additional_attributes>
-=======
-      <x>360</x>
-      <y>392</y>
-      <w>48</w>
-      <h>96</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=*</panel_attributes>
-    <additional_attributes>10.0;100.0;40.0;10.0</additional_attributes>
->>>>>>> a3504941d661178dda8c8c3f93c16841493274ce
   </element>
 </diagram>
