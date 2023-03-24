@@ -94,9 +94,8 @@ INSERT INTO Peluquero (id, nombre, apellido) VALUES
 -- Inserts para la tabla Estado
 INSERT INTO Estado (id, estado, descripcion) VALUES
 (1, 'Agendada', 'La cita ha sido agendada.'),
-(2, 'Confirmada', 'La cita ha sido confirmada.'),
-(3, 'Cancelada', 'La cita ha sido cancelada.'),
-(4, 'Completada', 'La cita ha sido completada.');
+(2, 'Cancelada', 'La cita ha sido cancelada.'),
+(3, 'Completada', 'La cita ha sido completada.');
 
 -- Inserts para la tabla Sucursal
 INSERT INTO Sucursal (id, nombre, direccion, telefono) VALUES
@@ -132,11 +131,11 @@ INSERT INTO Contacto (id, mail, numeroTelefono) VALUES
 
 -- Inserts para la tabla Cita
 INSERT INTO Cita (id, FechaHora, Peluquero_id, cliente_id, sucursal_id, estado_id) VALUES
-(1, '2023-03-24 09:00:00', 1, 1, 1, 1),
-(2, '2023-03-25 10:00:00', 2, 2, 2, 1),
-(3, '2023-03-26 11:00:00', 3, 3, 3, 1),
-(4, '2023-03-27 12:00:00', 4, 4, 4, 1),
-(5, '2023-03-28 13:00:00', 5, 5, 5, 1);
+(1, '2023-03-24 09:00:00', 1, 1, 1, 3),
+(2, '2023-03-25 10:00:00', 2, 2, 2, 3),
+(3, '2023-02-26 11:00:00', 3, 3, 3, 3),
+(4, '2023-02-27 12:00:00', 4, 4, 4, 3),
+(5, '2023-02-28 13:00:00', 5, 5, 5, 2);
 
 -- Inserts para la tabla Servicio
 INSERT INTO Servicio (id, nombre, precio, descripcion) VALUES
@@ -169,3 +168,14 @@ INSERT INTO ContactoCliente (id, contacto_id, cliente_id) VALUES
 (3, 3, 3),
 (4, 4, 4),
 (5, 5, 5);
+
+-- queries
+SELECT Sucursal.nombre AS Sucursal, 
+       COUNT(CASE WHEN Cita.FechaHora BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOW() THEN Cita.id END) AS CitasReservadas, 
+       COUNT(CASE WHEN Cita.FechaHora BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOW() AND Cita.Estado_id = 2 THEN Cita.id END) AS CitasCompletadas, 
+       COUNT(CASE WHEN Cita.FechaHora BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOW() AND Cita.Estado_id = 3 THEN Cita.id END) AS CitasCanceladas,
+       COUNT(CASE WHEN Cita.FechaHora BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOW() AND Cita.Estado_id = 3 THEN Cita.id END) / COUNT(CASE WHEN Cita.FechaHora BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOW() THEN Cita.id END) * 100 AS PorcentajeCanceladas
+FROM Cita
+JOIN Sucursal ON Cita.Sucursal_id = Sucursal.id
+GROUP BY Sucursal.nombre;
+
