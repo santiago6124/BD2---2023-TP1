@@ -1,3 +1,6 @@
+drop database if EXISTS Pelu;
+CREATE database Pelu;
+
 CREATE TABLE Peluquero (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255),
