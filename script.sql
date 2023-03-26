@@ -218,7 +218,7 @@ FROM
     INNER JOIN Peluquero p ON p.id = c.Peluquero_id
     INNER JOIN Estado es ON c.estado_id = es.id
 WHERE 
-    c.sucursal_id = 1
+    c.sucursal_id = 1 --Por cada sucursal, se cambia el id, en este caso es para la sucursal 1.
     AND DATE(c.FechaHora) = CURDATE()
 GROUP BY 
     c.id, c.FechaHora, cl.nombre, cl.apellido, e.nombre, s.nombre, p.nombre, p.apellido
@@ -251,7 +251,7 @@ WHERE YEAR(c.FechaHora) = YEAR(NOW()) AND MONTH(c.FechaHora) >= MONTH(NOW())-6
 GROUP BY s.id, s.nombre;
 
 -- Quinta ✅
-SELECT c.cliente_id, COUNT(c.id) AS cantidad_citas, GROUP_CONCAT(CONCAT_WS(': ', e.estado, c.FechaHora) 
+SELECT c.cliente_id, COUNT(c.id) AS cantidad_citas, GROUP_CONCAT(CONCAT_WS(': ', e.estado, c.FechaHora, ' - ') 
 ORDER BY c.FechaHora DESC) AS historial_cortes
 FROM Cita c
 INNER JOIN Estado e ON c.estado_id = e.id
