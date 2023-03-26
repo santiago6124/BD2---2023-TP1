@@ -132,10 +132,12 @@ INSERT INTO Contacto (id, mail, numeroTelefono) VALUES
 -- Inserts para la tabla Cita
 INSERT INTO Cita (id, FechaHora, Peluquero_id, cliente_id, sucursal_id, estado_id) VALUES
 (1, '2023-03-24 09:00:00', 1, 1, 1, 3),
+(7, '2023-03-26 17:00:00', 1, 1, 1, 3),
 (2, '2023-03-25 10:00:00', 2, 2, 2, 3),
 (3, '2023-02-26 11:00:00', 3, 3, 3, 3),
 (4, '2023-02-27 12:00:00', 4, 4, 4, 3),
-(5, '2023-02-28 13:00:00', 5, 5, 5, 2);
+(5, '2023-02-28 13:00:00', 5, 5, 5, 2),
+(6, '2023-02-28 13:00:00', 5, 5, 5, 2);
 
 -- Inserts para la tabla Servicio
 INSERT INTO Servicio (id, nombre, precio, descripcion) VALUES
@@ -172,34 +174,41 @@ INSERT INTO ContactoCliente (id, contacto_id, cliente_id) VALUES
 -- ✨ Queries ✨
 -- 👷 Revisar 👷
 
--- Primera
+-- Primera ✅
 SELECT 
     s.nombre AS sucursal_nombre,
     COUNT(CASE 
-        WHEN c.FechaHora >= DATE_SUB(NOW(), INTERVAL 1 MONTH) THEN 1 
+        WHEN YEAR(c.FechaHora) = YEAR(NOW()) AND MONTH(c.FechaHora) = MONTH(NOW()) THEN 1 
     END) AS cantidad_citas_mes_actual,
     COUNT(CASE 
-        WHEN c.FechaHora >= DATE_SUB(NOW(), INTERVAL 2 MONTH) AND c.FechaHora < DATE_SUB(NOW(), INTERVAL 1 MONTH) THEN 1 
+        WHEN YEAR(c.FechaHora) = YEAR(NOW()) AND MONTH(c.FechaHora) = MONTH(NOW())-1 THEN 1 
     END) AS cantidad_citas_mes_pasado,
-    SUM(servicio.precio) AS monto_recaudado
+    MONTH(c.FechaHora) AS mes,
+    SUM(CASE 
+        WHEN YEAR(c.FechaHora) = YEAR(NOW()) AND MONTH(c.FechaHora) = MONTH(NOW()) THEN servicio.precio 
+        ELSE 0 
+    END) AS monto_recaudado_mes_actual,
+    SUM(servicio.precio) AS monto_total
 FROM 
     Cita c
     INNER JOIN Servicio servicio ON servicio.id = c.id
     INNER JOIN Sucursal s ON s.id = c.sucursal_id
 WHERE 
-    c.FechaHora >= DATE_SUB(NOW(), INTERVAL 2 MONTH)
+    YEAR(c.FechaHora) = YEAR(NOW()) AND MONTH(c.FechaHora) >= MONTH(NOW())-1
 GROUP BY 
-    s.nombre;
+    s.nombre, MONTH(c.FechaHora);
 
--- Segunda
+
+-- Segunda ✅
 SELECT 
     c.id AS cita_id,
     c.FechaHora AS cita_fecha_hora,
-    CONCAT(cl.nombre, ' ', cl.apellido) AS cliente_nombre_completo,
-    e.nombre AS estilo_nombre,
-    s.nombre AS sucursal_nombre,
+    CONCAT(cl.nombre, ' ', cl.apellido) AS cliente,
+    e.nombre AS estilo,
+    s.nombre AS sucursal,
     p.nombre AS peluquero_nombre,
-    p.apellido AS peluquero_apellido
+    p.apellido AS peluquero_apellido, 
+    GROUP_CONCAT(CONCAT_WS(': ', es.estado, c.FechaHora)  ORDER BY c.FechaHora DESC) AS historial_cortes
 FROM 
     Cita c
     INNER JOIN Cliente cl ON cl.id = c.cliente_id
@@ -207,26 +216,29 @@ FROM
     LEFT JOIN Estilo e ON e.id = ec.estilo_id
     INNER JOIN Sucursal s ON s.id = c.sucursal_id
     INNER JOIN Peluquero p ON p.id = c.Peluquero_id
+    INNER JOIN Estado es ON c.estado_id = es.id
 WHERE 
-    c.sucursal_id = {ID_DE_LA_SUCURSAL_DEL_PELUQUERO}
+    c.sucursal_id = 1
     AND DATE(c.FechaHora) = CURDATE()
+GROUP BY 
+    c.id, c.FechaHora, cl.nombre, cl.apellido, e.nombre, s.nombre, p.nombre, p.apellido
 ORDER BY 
     c.FechaHora ASC;
 
--- Tercera
+-- Tercera ✅
 SELECT s.nombre AS sucursal_nombre,
     MAX(p.nombre) AS peluquero_mas_solicitado,
-    COUNT(*) AS cantidad_citas_peluquero_mas_solicitado,
+    COUNT(*) AS cantidad_citas_mas_solicitado,
     MIN(p.nombre) AS peluquero_menos_solicitado,
-    COUNT(*) AS cantidad_citas_peluquero_menos_solicitado
+    COUNT(*) AS cantidad_citas_menos_solicitado
 FROM Cita c
 INNER JOIN Peluquero p ON c.Peluquero_id = p.id
 INNER JOIN Sucursal s ON c.sucursal_id = s.id
-WHERE c.FechaHora >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
-GROUP BY s.nombre
-HAVING COUNT(p.nombre) >= 1;
+WHERE MONTH(c.FechaHora) = MONTH(NOW()) AND YEAR(c.FechaHora) = YEAR(NOW())
+GROUP BY s.nombre;
 
--- Cuarta
+
+-- Cuarta ✅
 SELECT s.id AS sucursal_id, s.nombre AS sucursal_nombre,
     COUNT(CASE WHEN e.estado = 'Reservada' THEN 1 END) AS cantidad_reservadas,
     COUNT(CASE WHEN e.estado = 'Completada' THEN 1 END) AS cantidad_completadas,
@@ -235,11 +247,12 @@ SELECT s.id AS sucursal_id, s.nombre AS sucursal_nombre,
 FROM Cita c
 INNER JOIN Estado e ON c.estado_id = e.id
 INNER JOIN Sucursal s ON c.sucursal_id = s.id
-WHERE c.FechaHora >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+WHERE YEAR(c.FechaHora) = YEAR(NOW()) AND MONTH(c.FechaHora) >= MONTH(NOW())-6
 GROUP BY s.id, s.nombre;
 
--- Quinta
-SELECT c.cliente_id, COUNT(c.id) AS cantidad_citas, GROUP_CONCAT(CONCAT_WS(': ', e.estado, c.FechaHora) ORDER BY c.FechaHora DESC) AS historial_cortes
+-- Quinta ✅
+SELECT c.cliente_id, COUNT(c.id) AS cantidad_citas, GROUP_CONCAT(CONCAT_WS(': ', e.estado, c.FechaHora) 
+ORDER BY c.FechaHora DESC) AS historial_cortes
 FROM Cita c
 INNER JOIN Estado e ON c.estado_id = e.id
 GROUP BY c.cliente_id;
