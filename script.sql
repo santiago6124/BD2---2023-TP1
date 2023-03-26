@@ -1,6 +1,6 @@
 drop database if EXISTS Pelu;
 CREATE database Pelu;
-
+use Pelu;
 CREATE TABLE Peluquero (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255),
@@ -169,13 +169,77 @@ INSERT INTO ContactoCliente (id, contacto_id, cliente_id) VALUES
 (4, 4, 4),
 (5, 5, 5);
 
--- queries
-SELECT Sucursal.nombre AS Sucursal, 
-       COUNT(CASE WHEN Cita.FechaHora BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOW() THEN Cita.id END) AS CitasReservadas, 
-       COUNT(CASE WHEN Cita.FechaHora BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOW() AND Cita.Estado_id = 2 THEN Cita.id END) AS CitasCompletadas, 
-       COUNT(CASE WHEN Cita.FechaHora BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOW() AND Cita.Estado_id = 3 THEN Cita.id END) AS CitasCanceladas,
-       COUNT(CASE WHEN Cita.FechaHora BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOW() AND Cita.Estado_id = 3 THEN Cita.id END) / COUNT(CASE WHEN Cita.FechaHora BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOW() THEN Cita.id END) * 100 AS PorcentajeCanceladas
-FROM Cita
-JOIN Sucursal ON Cita.Sucursal_id = Sucursal.id
-GROUP BY Sucursal.nombre;
+-- ✨ Queries ✨
+-- 👷 Revisar 👷
 
+-- Primera
+SELECT 
+    s.nombre AS sucursal_nombre,
+    COUNT(CASE 
+        WHEN c.FechaHora >= DATE_SUB(NOW(), INTERVAL 1 MONTH) THEN 1 
+    END) AS cantidad_citas_mes_actual,
+    COUNT(CASE 
+        WHEN c.FechaHora >= DATE_SUB(NOW(), INTERVAL 2 MONTH) AND c.FechaHora < DATE_SUB(NOW(), INTERVAL 1 MONTH) THEN 1 
+    END) AS cantidad_citas_mes_pasado,
+    SUM(servicio.precio) AS monto_recaudado
+FROM 
+    Cita c
+    INNER JOIN Servicio servicio ON servicio.id = c.id
+    INNER JOIN Sucursal s ON s.id = c.sucursal_id
+WHERE 
+    c.FechaHora >= DATE_SUB(NOW(), INTERVAL 2 MONTH)
+GROUP BY 
+    s.nombre;
+
+-- Segunda
+SELECT 
+    c.id AS cita_id,
+    c.FechaHora AS cita_fecha_hora,
+    CONCAT(cl.nombre, ' ', cl.apellido) AS cliente_nombre_completo,
+    e.nombre AS estilo_nombre,
+    s.nombre AS sucursal_nombre,
+    p.nombre AS peluquero_nombre,
+    p.apellido AS peluquero_apellido
+FROM 
+    Cita c
+    INNER JOIN Cliente cl ON cl.id = c.cliente_id
+    LEFT JOIN EstiloCliente ec ON ec.cliente_id = c.cliente_id
+    LEFT JOIN Estilo e ON e.id = ec.estilo_id
+    INNER JOIN Sucursal s ON s.id = c.sucursal_id
+    INNER JOIN Peluquero p ON p.id = c.Peluquero_id
+WHERE 
+    c.sucursal_id = {ID_DE_LA_SUCURSAL_DEL_PELUQUERO}
+    AND DATE(c.FechaHora) = CURDATE()
+ORDER BY 
+    c.FechaHora ASC;
+
+-- Tercera
+SELECT s.nombre AS sucursal_nombre,
+    MAX(p.nombre) AS peluquero_mas_solicitado,
+    COUNT(*) AS cantidad_citas_peluquero_mas_solicitado,
+    MIN(p.nombre) AS peluquero_menos_solicitado,
+    COUNT(*) AS cantidad_citas_peluquero_menos_solicitado
+FROM Cita c
+INNER JOIN Peluquero p ON c.Peluquero_id = p.id
+INNER JOIN Sucursal s ON c.sucursal_id = s.id
+WHERE c.FechaHora >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+GROUP BY s.nombre
+HAVING COUNT(p.nombre) >= 1;
+
+-- Cuarta
+SELECT s.id AS sucursal_id, s.nombre AS sucursal_nombre,
+    COUNT(CASE WHEN e.estado = 'Reservada' THEN 1 END) AS cantidad_reservadas,
+    COUNT(CASE WHEN e.estado = 'Completada' THEN 1 END) AS cantidad_completadas,
+    COUNT(CASE WHEN e.estado = 'Cancelada' THEN 1 END) AS cantidad_canceladas,
+    CONCAT(ROUND((COUNT(CASE WHEN e.estado = 'Cancelada' THEN 1 END) / COUNT(*) * 100), 2), '%') AS porcentaje_canceladas
+FROM Cita c
+INNER JOIN Estado e ON c.estado_id = e.id
+INNER JOIN Sucursal s ON c.sucursal_id = s.id
+WHERE c.FechaHora >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+GROUP BY s.id, s.nombre;
+
+-- Quinta
+SELECT c.cliente_id, COUNT(c.id) AS cantidad_citas, GROUP_CONCAT(CONCAT_WS(': ', e.estado, c.FechaHora) ORDER BY c.FechaHora DESC) AS historial_cortes
+FROM Cita c
+INNER JOIN Estado e ON c.estado_id = e.id
+GROUP BY c.cliente_id;
